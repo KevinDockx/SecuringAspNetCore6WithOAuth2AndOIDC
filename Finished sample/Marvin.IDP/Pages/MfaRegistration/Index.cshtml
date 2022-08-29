@@ -1,0 +1,39 @@
+﻿@page
+@model Marvin.IDP.Pages.MfaRegistration.IndexModel
+@{
+<script src="~/js/qrcode.min.js"></script>
+<script src="~/js/qrcodehelper.js"></script>
+
+ <div>
+        <div class="page-header">
+            <h1>Register for MFA</h1>
+        </div>
+
+        <partial name="_ValidationSummary" />
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Scan the QR code with your authenticator application, or manually enter the code you see underneath the QR code in your authenticator application</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form asp-page="/MfaRegistration/Index">
+                            <fieldset>
+                                <input type="hidden" asp-for="Input.Secret" />
+                                <div class="form-group">
+                                    <div id="qrCode"></div>                                    
+                                </div>
+                                <div id="qrCodeKeyUri">@Model.View.KeyUri</div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary">Registration successful</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

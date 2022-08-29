@@ -1,0 +1,58 @@
+﻿@page
+@model Marvin.IDP.Pages.User.Registration.IndexModel
+@{
+
+    <div>
+        <div class="page-header">
+            <h1>User Registration</h1>
+        </div>
+
+        <partial name="_ValidationSummary" />
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">User Registration</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form asp-route="Login">
+                            <input type="hidden" asp-for="Input.ReturnUrl" />
+                            <fieldset>
+                                <div class="form-group">
+                                    <label asp-for="Input.UserName"></label>
+                                    <input class="form-control" placeholder="Username" asp-for="Input.UserName" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.Password"></label>
+                                    <input type="password" class="form-control" placeholder="Password"
+                                       asp-for="Input.Password" autocomplete="off">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.Email"></label>
+                                    <input class="form-control" placeholder="Email" asp-for="Input.Email">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.GivenName"></label>
+                                    <input class="form-control" placeholder="Given name" asp-for="Input.GivenName">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.FamilyName"></label>
+                                    <input class="form-control" placeholder="Family name" asp-for="Input.FamilyName">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Input.Country"></label>
+                                    <select class="form-control" asp-for="Input.Country" asp-items="@Model.Input.CountryCodes"></select>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-primary">Register</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
