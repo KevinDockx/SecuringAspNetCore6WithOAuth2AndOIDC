@@ -19,7 +19,11 @@ try
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();
-    
+
+    // seed the configuration database
+    SeedData.EnsureSeedData(app);
+
+
     app.Run();
 }
 // https://github.com/dotnet/runtime/issues/60600

@@ -8,7 +8,7 @@ namespace Marvin.IDP.Pages.Login;
 
 public class InputModel
 {
-    [Required]
+  //  [Required]
     public string Totp { get; set; }
 
     [Required]
