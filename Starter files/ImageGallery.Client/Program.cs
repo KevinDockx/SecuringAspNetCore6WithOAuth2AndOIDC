@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,29 @@ builder.Services.AddHttpClient("APIClient", client =>
     client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
 });
 
+builder.Services.AddAuthentication(option =>
+{
+    option.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    option.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+})
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme) //after authenticated will save encrypted token validation 
+    .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, option =>
+    {
+        option.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        option.Authority = "https://localhost:5001/"; //address for identity provider that responsable for identity provider part of openid connect flow,
+                                                     //the middleware use this value to read metadata and discover endpoints
+        option.ClientId = "imagegallaryclient";
+        option.ClientSecret = "secret";
+        option.ResponseType = "code";
+        //option.Scope.Add("openid"); //Default
+        //option.Scope.Add("profile");
+        //option.CallbackPath = "signein-oidc";
+        option.SaveTokens = true;
+        option.GetClaimsFromUserInfoEndpoint = true;
+    }
+
+    ); // register and configure open id connect handler,
+       // enable our app to support the openid connect authentication workflow
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,6 +54,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

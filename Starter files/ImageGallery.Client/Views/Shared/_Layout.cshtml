@@ -26,6 +26,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Gallery" asp-action="AddImage">Add an Image</a>
                         </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Logout">Logout</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

@@ -1,10 +1,15 @@
 ﻿using ImageGallery.Client.ViewModels;
 using ImageGallery.Model;
-using Microsoft.AspNetCore.Mvc; 
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using System.Text;
 using System.Text.Json;
 
 namespace ImageGallery.Client.Controllers
 {
+    [Authorize]
     public class GalleryController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -20,6 +25,9 @@ namespace ImageGallery.Client.Controllers
 
         public async Task<IActionResult> Index()
         {
+
+            await LogIdentityInformation();
+
             var httpClient = _httpClientFactory.CreateClient("APIClient");
 
             var request = new HttpRequestMessage(
@@ -174,6 +182,17 @@ namespace ImageGallery.Client.Controllers
             response.EnsureSuccessStatusCode();
 
             return RedirectToAction("Index");
+        }
+
+        public async Task LogIdentityInformation()
+        {
+            var identityTpken  = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.IdToken);
+            var userClaimBuilder = new StringBuilder();
+            foreach (var claim in User.Claims)
+            {
+                userClaimBuilder.AppendLine($"Claim Type: {claim.Type} , Claim Value: {claim.Value}");
+            }
+            _logger.LogInformation($"Identity token & Claims {identityTpken} , \n {userClaimBuilder}");
         }
     }
 }

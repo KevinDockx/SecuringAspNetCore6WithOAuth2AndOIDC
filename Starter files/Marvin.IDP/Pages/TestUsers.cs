@@ -64,22 +64,22 @@ public class TestUsers
                 new TestUser
                 {
                     SubjectId = "74ABF593-92AF-44AA-93A9-F4F12C904A22",
-                    Username = "alice",
-                    Password = "alice",
+                    Username = "David",
+                    Password = "David",
                     Claims =
                     {
-                        new Claim(JwtClaimTypes.GivenName, "Alice"),
+                        new Claim(JwtClaimTypes.GivenName, "David"),
                         new Claim(JwtClaimTypes.FamilyName, "Smith")
                     }
                 },
                 new TestUser
                 {
                     SubjectId = "B1D14BB8-42AC-4199-BB6F-A4762674ADBD",
-                    Username = "bob",
-                    Password = "bob",
+                    Username = "Emma",
+                    Password = "Emma",
                     Claims =
                     {
-                        new Claim(JwtClaimTypes.GivenName, "Bob"),
+                        new Claim(JwtClaimTypes.GivenName, "Emma"),
                         new Claim(JwtClaimTypes.FamilyName, "Smith")
                     }
                 }
